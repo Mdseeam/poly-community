@@ -22,6 +22,10 @@ require('./models/Notice');
 require('./models/Message');
 require('./models/PrivateMessage');
 require('./models/Event');
+require('./models/Article');
+require('./models/Job');
+require('./models/StudyMaterial');
+require('./models/Poll');
 
 // Middleware
 app.use(cors());
@@ -29,10 +33,6 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Routes
-app.use('/api/notifications', require('./routes/notifications'));
-app.use('/api/polls', require('./routes/polls'));
-app.use('/api/jobs', require('./routes/jobs'));
-app.use('/api/articles', require('./routes/articles'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/polytechnics', require('./routes/polytechnics'));
@@ -40,6 +40,11 @@ app.use('/api/communities', require('./routes/communities'));
 app.use('/api/notices', require('./routes/notices'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/articles', require('./routes/articles'));
+app.use('/api/jobs', require('./routes/jobs'));
+app.use('/api/materials', require('./routes/materials'));
+app.use('/api/polls', require('./routes/polls'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // Socket.io Logic
 const onlineUsers = new Map();
@@ -100,6 +105,29 @@ io.on('connection', (socket) => {
         } catch (err) {
             console.error(err);
         }
+    });
+
+    // Department Chat
+    socket.on('join_department_room', (userData) => {
+        const room = `${userData.department}_${userData.semester}`;
+        socket.join(room);
+        io.to(room).emit('department_online_users', Array.from(onlineUsers.values()));
+    });
+
+    socket.on('send_department_message', async (data) => {
+        const room = `${data.department}_${data.semester}`;
+        const User = require('./models/User');
+        const sender = await User.findById(data.senderId).select('name profilePic');
+        io.to(room).emit('receive_department_message', {
+            sender,
+            content: data.content,
+            createdAt: new Date()
+        });
+    });
+
+    socket.on('department_typing', (userData) => {
+        const room = `${userData.department}_${userData.semester}`;
+        socket.to(room).emit('department_typing_users', [userData]);
     });
 
     socket.on('disconnect', () => {
