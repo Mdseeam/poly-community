@@ -1,0 +1,18 @@
+{
+  "short_name": "PolyCom",
+  "name": "Polytechnic Community",
+  "description": "Bangladesh Polytechnic Community App - Connect, Share, Learn",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1B5E20",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "."
+}
