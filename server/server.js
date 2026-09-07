@@ -15,7 +15,7 @@ const io = socketIo(server, {
 connectDB();
 
 // Load Models
-require('./models/User');
+require('./models/user');
 require('./models/Polytechnic');
 require('./models/Community');
 require('./models/Notice');
@@ -39,7 +39,7 @@ app.use('/api/polytechnics', require('./routes/polytechnics'));
 app.use('/api/communities', require('./routes/communities'));
 app.use('/api/notices', require('./routes/notices'));
 app.use('/api/events', require('./routes/events'));
-app.use('/api/users', require('./routes/users'));
+app.use('/api/users', require('./routes/Users'));
 app.use('/api/articles', require('./routes/articles'));
 app.use('/api/jobs', require('./routes/jobs'));
 app.use('/api/materials', require('./routes/materials'));
@@ -116,7 +116,7 @@ io.on('connection', (socket) => {
 
     socket.on('send_department_message', async (data) => {
         const room = `${data.department}_${data.semester}`;
-        const User = require('./models/User');
+        const User = require('./models/user');
         const sender = await User.findById(data.senderId).select('name profilePic');
         io.to(room).emit('receive_department_message', {
             sender,
