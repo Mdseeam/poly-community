@@ -15,7 +15,7 @@ const io = socketIo(server, {
 connectDB();
 
 // Load Models
-require('./models/user');
+require('./models/User');
 require('./models/Polytechnic');
 require('./models/Community');
 require('./models/Notice');
