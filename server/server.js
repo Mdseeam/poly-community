@@ -116,7 +116,7 @@ io.on('connection', (socket) => {
 
     socket.on('send_department_message', async (data) => {
         const room = `${data.department}_${data.semester}`;
-        const User = require('./models/user');
+        const User = require('./models/User');
         const sender = await User.findById(data.senderId).select('name profilePic');
         io.to(room).emit('receive_department_message', {
             sender,
