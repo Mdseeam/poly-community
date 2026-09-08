@@ -39,7 +39,7 @@ app.use('/api/polytechnics', require('./routes/polytechnics'));
 app.use('/api/communities', require('./routes/communities'));
 app.use('/api/notices', require('./routes/notices'));
 app.use('/api/events', require('./routes/events'));
-app.use('/api/users', require('./routes/Users'));
+app.use('/api/users', require('./routes/users'));
 app.use('/api/articles', require('./routes/articles'));
 app.use('/api/jobs', require('./routes/jobs'));
 app.use('/api/materials', require('./routes/materials'));
