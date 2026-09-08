@@ -18,7 +18,7 @@ function Community({ onBack }) {
     });
 
     const loadCommunities = () => {
-        axios.get('http://localhost:5000/api/communities')
+        axios.get('https://poly-community.onrender.com/api/communities')
             .then(res => setCommunities(res.data))
             .catch(err => console.error(err));
     };
@@ -31,7 +31,7 @@ function Community({ onBack }) {
         e.preventDefault();
         const token = localStorage.getItem('token');
         try {
-            await axios.post('http://localhost:5000/api/communities', formData, {
+            await axios.post('https://poly-community.onrender.com/api/communities', formData, {
                 headers: { 'x-auth-token': token }
             });
             setFormData({ name: '', description: '', isPrivate: false, password: '' });
@@ -45,7 +45,7 @@ function Community({ onBack }) {
     const handleJoin = async (communityId) => {
         const token = localStorage.getItem('token');
         try {
-            const res = await axios.post(`http://localhost:5000/api/communities/${communityId}/join`,
+            const res = await axios.post(`https://poly-community.onrender.com/api/communities/${communityId}/join`,
                 { password: joinPassword },
                 { headers: { 'x-auth-token': token } }
             );

@@ -14,7 +14,7 @@ function Jobs({ onBack }) {
     const [editingId, setEditingId] = useState(null);
 
     const loadJobs = () => {
-        axios.get('http://localhost:5000/api/jobs').then(res => setJobs(res.data));
+        axios.get('https://poly-community.onrender.com/api/jobs').then(res => setJobs(res.data));
     };
 
     useEffect(() => { loadJobs(); }, []);
@@ -31,12 +31,12 @@ function Jobs({ onBack }) {
         if (imageFile) formData.append('file', imageFile);
 
         if (editingId) {
-            await axios.put(`http://localhost:5000/api/jobs/${editingId}`, formData, {
+            await axios.put(`https://poly-community.onrender.com/api/jobs/${editingId}`, formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
             setEditingId(null);
         } else {
-            await axios.post('http://localhost:5000/api/jobs', formData, {
+            await axios.post('https://poly-community.onrender.com/api/jobs', formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
         }
@@ -55,7 +55,7 @@ function Jobs({ onBack }) {
 
     const deleteJob = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/jobs/${id}`, {
+        await axios.delete(`https://poly-community.onrender.com/api/jobs/${id}`, {
             headers: { 'x-auth-token': token }
         });
         loadJobs();
@@ -85,7 +85,7 @@ function Jobs({ onBack }) {
             <div className="card">
                 {jobs.map(job => (
                     <div key={job._id} style={{ margin: '10px 0', padding: '15px', border: '1px solid var(--border)', borderRadius: '10px' }}>
-                        {job.imageUrl && <img src={`http://localhost:5000${job.imageUrl}`} style={{ width: '100%', borderRadius: '10px' }} />}
+                        {job.imageUrl && <img src={`https://poly-community.onrender.com${job.imageUrl}`} style={{ width: '100%', borderRadius: '10px' }} />}
                         <h4>{job.title}</h4>
                         <p>{job.company} - {job.location}</p>
                         <p>{job.type}</p>

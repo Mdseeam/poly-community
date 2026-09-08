@@ -11,7 +11,7 @@ function Events({ onBack }) {
     const [editingEvent, setEditingEvent] = useState(null);
 
     const loadEvents = () => {
-        axios.get('http://localhost:5000/api/events')
+        axios.get('https://poly-community.onrender.com/api/events')
             .then(res => setEvents(res.data))
             .catch(err => console.error(err));
     };
@@ -24,7 +24,7 @@ function Events({ onBack }) {
         e.preventDefault();
         const token = localStorage.getItem('token');
         try {
-            await axios.post('http://localhost:5000/api/events', { title, description, date },
+            await axios.post('https://poly-community.onrender.com/api/events', { title, description, date },
                 { headers: { 'x-auth-token': token } });
             setTitle(''); setDescription(''); setDate('');
             loadEvents();
@@ -43,7 +43,7 @@ function Events({ onBack }) {
     const saveEdit = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.put(`http://localhost:5000/api/events/${editingEvent._id}`,
+            await axios.put(`https://poly-community.onrender.com/api/events/${editingEvent._id}`,
                 { title, description, date },
                 { headers: { 'x-auth-token': token } });
             setEditingEvent(null);
@@ -58,7 +58,7 @@ function Events({ onBack }) {
         const token = localStorage.getItem('token');
         if (!window.confirm('Are you sure you want to delete this event?')) return;
         try {
-            const res = await axios.delete(`http://localhost:5000/api/events/${id}`, {
+            const res = await axios.delete(`https://poly-community.onrender.com/api/events/${id}`, {
                 headers: { 'x-auth-token': token }
             });
             alert(res.data.msg || 'Deleted');

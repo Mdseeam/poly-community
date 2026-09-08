@@ -6,7 +6,7 @@ function UserProfile({ userId, onBack, onOpenChat, currentUserId }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/users/${userId}`)
+        axios.get(`https://poly-community.onrender.com/api/users/${userId}`)
             .then(res => {
                 setUser(res.data);
                 setLoading(false);

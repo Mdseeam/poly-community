@@ -20,7 +20,7 @@ function StudyMaterials({ onBack }) {
     const semesters = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
 
     const loadMaterials = () => {
-        let url = 'http://localhost:5000/api/materials';
+        let url = 'https://poly-community.onrender.com/api/materials';
         const params = new URLSearchParams();
         if (filterDept) params.append('department', filterDept);
         if (filterSem) params.append('semester', filterSem);
@@ -43,12 +43,12 @@ function StudyMaterials({ onBack }) {
         if (imageFile) formData.append('file', imageFile);
 
         if (editingId) {
-            await axios.put(`http://localhost:5000/api/materials/${editingId}`, formData, {
+            await axios.put(`https://poly-community.onrender.com/api/materials/${editingId}`, formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
             setEditingId(null);
         } else {
-            await axios.post('http://localhost:5000/api/materials', formData, {
+            await axios.post('https://poly-community.onrender.com/api/materials', formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
         }
@@ -68,7 +68,7 @@ function StudyMaterials({ onBack }) {
 
     const deleteMaterial = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/materials/${id}`, {
+        await axios.delete(`https://poly-community.onrender.com/api/materials/${id}`, {
             headers: { 'x-auth-token': token }
         });
         loadMaterials();
@@ -111,7 +111,7 @@ function StudyMaterials({ onBack }) {
             <div className="card">
                 {materials.map(mat => (
                     <div key={mat._id} style={{ padding: '15px', margin: '10px 0', background: 'var(--bg)', borderRadius: '10px' }}>
-                        {mat.imageUrl && <img src={`http://localhost:5000${mat.imageUrl}`} style={{ width: '100%' }} />}
+                        {mat.imageUrl && <img src={`https://poly-community.onrender.com${mat.imageUrl}`} style={{ width: '100%' }} />}
                         <h4>{mat.title}</h4>
                         <p>{mat.description}</p>
                         <small>{mat.subject} • {mat.department} • {mat.semester} Semester</small>

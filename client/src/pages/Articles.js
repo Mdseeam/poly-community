@@ -12,7 +12,7 @@ function Articles({ onBack }) {
     const [editingId, setEditingId] = useState(null);
 
     const loadArticles = () => {
-        axios.get('http://localhost:5000/api/articles').then(res => setArticles(res.data));
+        axios.get('https://poly-community.onrender.com/api/articles').then(res => setArticles(res.data));
     };
 
     useEffect(() => { loadArticles(); }, []);
@@ -27,12 +27,12 @@ function Articles({ onBack }) {
         if (imageFile) formData.append('file', imageFile);
 
         if (editingId) {
-            await axios.put(`http://localhost:5000/api/articles/${editingId}`, formData, {
+            await axios.put(`https://poly-community.onrender.com/api/articles/${editingId}`, formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
             setEditingId(null);
         } else {
-            await axios.post('http://localhost:5000/api/articles', formData, {
+            await axios.post('https://poly-community.onrender.com/api/articles', formData, {
                 headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
             });
         }
@@ -49,7 +49,7 @@ function Articles({ onBack }) {
 
     const deleteArticle = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/articles/${id}`, {
+        await axios.delete(`https://poly-community.onrender.com/api/articles/${id}`, {
             headers: { 'x-auth-token': token }
         });
         loadArticles();
@@ -57,7 +57,7 @@ function Articles({ onBack }) {
 
     const likeArticle = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.put(`http://localhost:5000/api/articles/${id}/like`, {}, {
+        await axios.put(`https://poly-community.onrender.com/api/articles/${id}/like`, {}, {
             headers: { 'x-auth-token': token }
         });
         loadArticles();
@@ -80,7 +80,7 @@ function Articles({ onBack }) {
             <div className="card">
                 {articles.map(art => (
                     <div key={art._id} style={{ margin: '10px 0', padding: '15px', border: '1px solid var(--border)', borderRadius: '10px' }}>
-                        {art.coverImage && <img src={`http://localhost:5000${art.coverImage}`} style={{ width: '100%', borderRadius: '10px' }} alt="" />}
+                        {art.coverImage && <img src={`https://poly-community.onrender.com${art.coverImage}`} style={{ width: '100%', borderRadius: '10px' }} alt="" />}
                         <h3>{art.title}</h3>
                         <p>{art.content}</p>
                         {art.videoUrl && <iframe width="100%" height="315" src={art.videoUrl.replace('watch?v=', 'embed/')} title="video" />}

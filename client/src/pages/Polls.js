@@ -10,7 +10,7 @@ function Polls({ onBack }) {
     const [editingId, setEditingId] = useState(null);
 
     const loadPolls = () => {
-        axios.get('http://localhost:5000/api/polls').then(res => setPolls(res.data));
+        axios.get('https://poly-community.onrender.com/api/polls').then(res => setPolls(res.data));
     };
 
     useEffect(() => { loadPolls(); }, []);
@@ -22,11 +22,11 @@ function Polls({ onBack }) {
         if (validOptions.length < 2) return alert('Need at least 2 options');
 
         if (editingId) {
-            await axios.put(`http://localhost:5000/api/polls/${editingId}`, { question, options: validOptions },
+            await axios.put(`https://poly-community.onrender.com/api/polls/${editingId}`, { question, options: validOptions },
                 { headers: { 'x-auth-token': token } });
             setEditingId(null);
         } else {
-            await axios.post('http://localhost:5000/api/polls', { question, options: validOptions },
+            await axios.post('https://poly-community.onrender.com/api/polls', { question, options: validOptions },
                 { headers: { 'x-auth-token': token } });
         }
         setQuestion(''); setOptions(['', '']);
@@ -41,7 +41,7 @@ function Polls({ onBack }) {
 
     const deletePoll = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/polls/${id}`, {
+        await axios.delete(`https://poly-community.onrender.com/api/polls/${id}`, {
             headers: { 'x-auth-token': token }
         });
         loadPolls();
@@ -49,7 +49,7 @@ function Polls({ onBack }) {
 
     const vote = async (pollId, optionIndex) => {
         const token = localStorage.getItem('token');
-        await axios.put(`http://localhost:5000/api/polls/${pollId}/vote/${optionIndex}`, {},
+        await axios.put(`https://poly-community.onrender.com/api/polls/${pollId}/vote/${optionIndex}`, {},
             { headers: { 'x-auth-token': token } });
         loadPolls();
     };

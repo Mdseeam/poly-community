@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.get('http://localhost:5000/api/auth/me', {
+            axios.get('https://poly-community.onrender.com/api/auth/me', {
                 headers: { 'x-auth-token': token }
             }).then(res => {
                 setUser(res.data);
@@ -25,18 +25,18 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
-        const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+        const res = await axios.post('https://poly-community.onrender.com/api/auth/login', { email, password });
         localStorage.setItem('token', res.data.token);
-        const me = await axios.get('http://localhost:5000/api/auth/me', {
+        const me = await axios.get('https://poly-community.onrender.com/api/auth/me', {
             headers: { 'x-auth-token': res.data.token }
         });
         setUser(me.data);
     };
 
     const register = async (formData) => {
-        const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+        const res = await axios.post('https://poly-community.onrender.com/api/auth/register', formData);
         localStorage.setItem('token', res.data.token);
-        const me = await axios.get('http://localhost:5000/api/auth/me', {
+        const me = await axios.get('https://poly-community.onrender.com/api/auth/me', {
             headers: { 'x-auth-token': res.data.token }
         });
         setUser(me.data);

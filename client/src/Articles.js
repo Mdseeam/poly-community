@@ -11,26 +11,26 @@ function Articles({ onBack }) {
     const [videoUrl, setVideoUrl] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/articles')
+        axios.get('https://poly-community.onrender.com/api/articles')
             .then(res => setArticles(res.data));
     }, []);
 
     const createArticle = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        await axios.post('http://localhost:5000/api/articles',
+        await axios.post('https://poly-community.onrender.com/api/articles',
             { title, content, coverImage, videoUrl },
             { headers: { 'x-auth-token': token } });
         setTitle(''); setContent(''); setCoverImage(''); setVideoUrl('');
-        const res = await axios.get('http://localhost:5000/api/articles');
+        const res = await axios.get('https://poly-community.onrender.com/api/articles');
         setArticles(res.data);
     };
 
     const likeArticle = async (id) => {
         const token = localStorage.getItem('token');
-        await axios.put(`http://localhost:5000/api/articles/${id}/like`, {},
+        await axios.put(`https://poly-community.onrender.com/api/articles/${id}/like`, {},
             { headers: { 'x-auth-token': token } });
-        const res = await axios.get('http://localhost:5000/api/articles');
+        const res = await axios.get('https://poly-community.onrender.com/api/articles');
         setArticles(res.data);
     };
 

@@ -17,11 +17,11 @@ function GlobalChat({ onBack, onLogout }) {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.get('http://localhost:5000/api/auth/me', {
+            axios.get('https://poly-community.onrender.com/api/auth/me', {
                 headers: { 'x-auth-token': token }
             }).then(res => {
                 setUser(res.data);
-                socketRef.current = io('http://localhost:5000');
+                socketRef.current = io('https://poly-community.onrender.com');
                 socketRef.current.emit('join_global_room', { id: res.data._id, name: res.data.name });
 
                 socketRef.current.on('receive_message', (msg) => {
@@ -44,7 +44,7 @@ function GlobalChat({ onBack, onLogout }) {
         const saved = localStorage.getItem('globalChat');
         if (saved) setMessages(JSON.parse(saved));
 
-        axios.get('http://localhost:5000/api/messages/global', {
+        axios.get('https://poly-community.onrender.com/api/messages/global', {
             headers: { 'x-auth-token': token }
         }).then(res => {
             setMessages(res.data);

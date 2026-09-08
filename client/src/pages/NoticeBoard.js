@@ -9,7 +9,7 @@ function NoticeBoard({ communityId, onBack, onLogout }) {
 
     const loadNotices = () => {
         if (communityId) {
-            axios.get(`http://localhost:5000/api/notices/community/${communityId}`)
+            axios.get(`https://poly-community.onrender.com/api/notices/community/${communityId}`)
                 .then(res => {
                     setNotices(res.data);
                     setLoading(false);
@@ -26,7 +26,7 @@ function NoticeBoard({ communityId, onBack, onLogout }) {
         e.preventDefault();
         const token = localStorage.getItem('token');
         try {
-            await axios.post('http://localhost:5000/api/notices', {
+            await axios.post('https://poly-community.onrender.com/api/notices', {
                 title, content, communityId
             }, { headers: { 'x-auth-token': token } });
             setTitle('');

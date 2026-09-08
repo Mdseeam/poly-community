@@ -26,7 +26,7 @@ function DepartmentChat({ onBack }) {
     const semesters = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
 
     useEffect(() => {
-        socketRef.current = io('http://localhost:5000');
+        socketRef.current = io('https://poly-community.onrender.com');
         socketRef.current.emit('join_department_room', {
             userId: user?._id,
             name: user?.name,

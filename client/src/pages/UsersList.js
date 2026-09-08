@@ -7,8 +7,8 @@ function UsersList({ onBack, onOpenProfile, currentUserId }) {
 
     const loadUsers = (query = '') => {
         const url = query
-            ? `http://localhost:5000/api/users/search?q=${query}`
-            : 'http://localhost:5000/api/users';
+            ? `https://poly-community.onrender.com/api/users/search?q=${query}`
+            : 'https://poly-community.onrender.com/api/users';
         axios.get(url)
             .then(res => setUsers(res.data))
             .catch(err => console.error(err));

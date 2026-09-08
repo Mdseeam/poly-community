@@ -39,7 +39,7 @@ function Profile({ onBack }) {
     const handleSave = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.put('http://localhost:5000/api/auth/me', {
+            await axios.put('https://poly-community.onrender.com/api/auth/me', {
                 name, bio, department, semester
             }, { headers: { 'x-auth-token': token } });
             setMessage('Profile updated successfully!');
@@ -70,7 +70,7 @@ function Profile({ onBack }) {
             });
 
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/notifications/subscribe', subscription, {
+            await axios.post('https://poly-community.onrender.com/api/notifications/subscribe', subscription, {
                 headers: { 'x-auth-token': token }
             });
 

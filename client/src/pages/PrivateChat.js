@@ -12,9 +12,9 @@ function PrivateChat({ receiverId, receiverName, onBack }) {
     const socketRef = useRef();
 
     useEffect(() => {
-        socketRef.current = io('http://localhost:5000');
+        socketRef.current = io('https://poly-community.onrender.com');
 
-        axios.get(`http://localhost:5000/api/messages/private/${receiverId}`, {
+        axios.get(`https://poly-community.onrender.com/api/messages/private/${receiverId}`, {
             headers: { 'x-auth-token': localStorage.getItem('token') }
         }).then(res => setMessages(res.data));
 
@@ -51,12 +51,12 @@ function PrivateChat({ receiverId, receiverName, onBack }) {
     const saveEdit = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.put(`http://localhost:5000/api/messages/private/${id}`,
+            await axios.put(`https://poly-community.onrender.com/api/messages/private/${id}`,
                 { content: editContent },
                 { headers: { 'x-auth-token': token } }
             );
             setEditingMsgId(null);
-            const res = await axios.get(`http://localhost:5000/api/messages/private/${receiverId}`, {
+            const res = await axios.get(`https://poly-community.onrender.com/api/messages/private/${receiverId}`, {
                 headers: { 'x-auth-token': token }
             });
             setMessages(res.data);
@@ -68,10 +68,10 @@ function PrivateChat({ receiverId, receiverName, onBack }) {
     const deleteMsg = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:5000/api/messages/private/${id}`, {
+            await axios.delete(`https://poly-community.onrender.com/api/messages/private/${id}`, {
                 headers: { 'x-auth-token': token }
             });
-            const res = await axios.get(`http://localhost:5000/api/messages/private/${receiverId}`, {
+            const res = await axios.get(`https://poly-community.onrender.com/api/messages/private/${receiverId}`, {
                 headers: { 'x-auth-token': token }
             });
             setMessages(res.data);

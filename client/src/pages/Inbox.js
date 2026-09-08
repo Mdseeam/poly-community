@@ -9,7 +9,7 @@ function Inbox({ onBack, onOpenChat }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        axios.get('http://localhost:5000/api/messages/inbox', {
+        axios.get('https://poly-community.onrender.com/api/messages/inbox', {
             headers: { 'x-auth-token': token }
         })
             .then(res => {
