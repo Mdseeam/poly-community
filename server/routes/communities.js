@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const Community = require('../models/Community');
 const auth = require('../middleware/auth');
-const User = require('../models/user');
+const User = require('../models/User');
 
 // সব কমিউনিটি (পাসওয়ার্ড ছাড়া)
 router.get('/', async (req, res) => {
